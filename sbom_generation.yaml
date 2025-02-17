@@ -8,14 +8,19 @@ version: 0.1
 component: build
 timeoutInSeconds: 1000
 shell: bash
-
+env:
+  variables:
+    "JAVA_HOME": "/usr/lib64/graalvm/graalvm22-ee-java17"
 steps:
+  - type: Command
+    name: "Update graalvm version"
+    command: |
+      yum -y install graalvm21-ee-11-jdk 
+      export PATH=$JAVA_HOME/bin:$PATH
+
   - type: Command
     name: "Run Gradle cyclonedxBom command"
     command: |
-      yum -y install graalvm21-ee-11-jdk 
-      export JAVA_HOME=/usr/lib64/graalvm/graalvm21-ee-java11 
-      export PATH=$JAVA_HOME/bin:$PATH
       # For more details, visit https://github.com/CycloneDX/cyclonedx-gradle-plugin/blob/master/README.md
       cat <<EOF >> init.gradle
         initscript {
