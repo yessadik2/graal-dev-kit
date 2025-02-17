@@ -13,6 +13,9 @@ steps:
   - type: Command
     name: "Run Gradle cyclonedxBom command"
     command: |
+      yum -y install graalvm21-ee-11-jdk
+      export JAVA_HOME=/usr/lib64/graalvm/graalvm21-ee-11
+      export PATH=$JAVA_HOME/bin:$PATH
       # For more details, visit https://github.com/CycloneDX/cyclonedx-gradle-plugin/blob/master/README.md
       cat <<EOF >> init.gradle
         initscript {
