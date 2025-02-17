@@ -10,12 +10,12 @@ timeoutInSeconds: 1000
 shell: bash
 env:
   variables:
-    "JAVA_HOME": "/usr/lib64/graalvm/graalvm17-jdk"
+    "JAVA_HOME": "/usr/lib64/graalvm/graalvm22-ee-java17"
 steps:
   - type: Command
     name: "Update graalvm version"
     command: |
-      yum -y install graalvm-17-jdk 
+      yum -y install graalvm22-ee-17-jdk 
       export PATH=$JAVA_HOME/bin:$PATH
 
   - type: Command
@@ -32,6 +32,9 @@ steps:
           dependencies {
             classpath "org.cyclonedx:cyclonedx-gradle-plugin:1.7.4"
           }
+        }
+        gradle.rootProject {
+         group= "gdk"
         }
         allprojects {
           apply plugin:org.cyclonedx.gradle.CycloneDxPlugin
